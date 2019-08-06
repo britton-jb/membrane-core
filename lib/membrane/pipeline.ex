@@ -26,6 +26,11 @@ defmodule Membrane.Pipeline do
   use Membrane.Core.PlaybackHandler
   use Membrane.Core.PlaybackRequestor
 
+  
+  defmodule Spec do
+    use Membrane.Core.ParentSpec
+  end
+
   @typedoc """
   Defines options that can be passed to `start/3` / `start_link/3` and received
   in `c:handle_init/1` callback.
