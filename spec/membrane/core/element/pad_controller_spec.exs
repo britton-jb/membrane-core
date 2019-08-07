@@ -1,7 +1,8 @@
 defmodule Membrane.Core.PadControllerSpec do
   use ESpec, async: false
   alias Membrane.Support.Element.{DynamicFilter, TrivialFilter}
-  alias Membrane.Core.Element.{PadModel, PadSpecHandler, State}
+  alias Membrane.Core.PadModel
+  alias Membrane.Core.Element.{PadSpecHandler, State}
   alias Membrane.Core.PadSpecHandler
   alias Membrane.Event.EndOfStream
 
@@ -114,7 +115,7 @@ defmodule Membrane.Core.PadControllerSpec do
     let :other_ref, do: :other_pad
 
     let :pad_data,
-      do: %Membrane.Element.Pad.Data{
+      do: %Membrane.Core.Pad.Data{
         start_of_stream?: true,
         end_of_stream?: false
       }
@@ -183,7 +184,7 @@ defmodule Membrane.Core.PadControllerSpec do
       let :pad_ref, do: {:input, 0}
 
       let :pad_data,
-        do: %Membrane.Element.Pad.Data{
+        do: %Membrane.Core.Pad.Data{
           start_of_stream?: true,
           end_of_stream?: false
         }
