@@ -153,4 +153,15 @@ defmodule Membrane.Core.Pad do
   """
   def name_by_ref({:dynamic, name, _id}) when is_pad_name(name), do: name
   def name_by_ref(ref) when is_pad_name(ref), do: ref
+
+  def assert_public_name!(name) do
+    if not public_name?(name) do
+      raise CompileError,
+        file: __ENV__.file,
+        description: "#{inspect(name)} is not a proper pad name. Use public names only."
+    end
+  end
+
+  defp public_name?(name) when is_atom(name), do: true
+  defp public_name?(_), do: false
 end
