@@ -229,7 +229,7 @@ defmodule Membrane.Pipeline do
     {:ok, state} = exec_handle_spec_started(children_names, state)
 
     children_pids
-    |> Enum.each(&Element.change_playback_state(&1, state.playback.state))
+    |> Enum.each(&change_playback_state(&1, state.playback.state))
 
     debug("""
     Initialized pipeline spec
