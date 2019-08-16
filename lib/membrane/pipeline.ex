@@ -227,11 +227,7 @@ defmodule Membrane.Pipeline do
 
   @impl GenServer
   def handle_info(message, state) do
-    Parent.MessageDispatcher.handle_message(message, state, %{
-      action_handler: __MODULE__,
-      playback_controller: __MODULE__,
-      spec_controller: SpecController
-    })
+    Parent.MessageDispatcher.handle_message(message, state, handlers())
     |> noreply(state)
   end
 
@@ -258,6 +254,14 @@ defmodule Membrane.Pipeline do
   def handle_action(action, callback, _params, state) do
     Parent.Action.handle_unknown_action(action, callback, state.module)
   end
+
+  @spec handlers :: Parent.MessageDispatcher.handlers()
+  defp handlers,
+    do: %{
+      action_handler: __MODULE__,
+      playback_controller: __MODULE__,
+      spec_controller: SpecController
+    }
 
   defmacro __using__(_) do
     quote location: :keep do
