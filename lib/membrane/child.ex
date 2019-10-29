@@ -12,7 +12,7 @@ defmodule Membrane.Child do
           {:ok | {:ok, [Action.t()]} | {:error, any}, child_state_t()} | {:error, any}
 
   @doc """
-  Callback that is called when new pad has beed added to element. Executed
+  Callback that is called when new pad has beed added to child. Executed
   ONLY for dynamic pads.
   """
   @callback handle_pad_added(
@@ -22,7 +22,7 @@ defmodule Membrane.Child do
             ) :: callback_return_t
 
   @doc """
-  Callback that is called when some pad of the element has beed removed. Executed
+  Callback that is called when some pad of the child has beed removed. Executed
   ONLY for dynamic pads.
   """
   @callback handle_pad_removed(
