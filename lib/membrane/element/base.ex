@@ -156,26 +156,6 @@ defmodule Membrane.Element.Base do
             ) :: callback_return_t
 
   @doc """
-  Callback that is called when new pad has beed added to element. Executed
-  ONLY for dynamic pads.
-  """
-  @callback handle_pad_added(
-              pad :: Pad.ref_t(),
-              context :: CallbackContext.PadAdded.t(),
-              state :: Element.state_t()
-            ) :: callback_return_t
-
-  @doc """
-  Callback that is called when some pad of the element has beed removed. Executed
-  ONLY for dynamic pads.
-  """
-  @callback handle_pad_removed(
-              pad :: Pad.ref_t(),
-              context :: CallbackContext.PadRemoved.t(),
-              state :: Element.state_t()
-            ) :: callback_return_t
-
-  @doc """
   Callback that is called when event arrives.
 
   Events may arrive from both sinks and sources. In filters by default event is
@@ -216,8 +196,6 @@ defmodule Membrane.Element.Base do
                       handle_playing_to_prepared: 2,
                       handle_prepared_to_stopped: 2,
                       handle_other: 3,
-                      handle_pad_added: 3,
-                      handle_pad_removed: 3,
                       handle_event: 4,
                       handle_tick: 3,
                       handle_shutdown: 2
@@ -300,6 +278,7 @@ defmodule Membrane.Element.Base do
       @before_compile {unquote(__MODULE__), :generate_moduledoc}
 
       use Membrane.Log, tags: :element, import: false
+      use Membrane.Child
 
       alias Membrane.Element.CallbackContext, as: Ctx
 
@@ -328,12 +307,6 @@ defmodule Membrane.Element.Base do
       def handle_other(_message, _context, state), do: {:ok, state}
 
       @impl true
-      def handle_pad_added(_pad, _context, state), do: {:ok, state}
-
-      @impl true
-      def handle_pad_removed(_pad, _context, state), do: {:ok, state}
-
-      @impl true
       def handle_event(_pad, _event, _context, state), do: {:ok, state}
 
       @impl true
@@ -345,8 +318,6 @@ defmodule Membrane.Element.Base do
                      handle_prepared_to_playing: 2,
                      handle_prepared_to_stopped: 2,
                      handle_other: 3,
-                     handle_pad_added: 3,
-                     handle_pad_removed: 3,
                      handle_event: 4,
                      handle_shutdown: 2
     end

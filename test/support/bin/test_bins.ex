@@ -81,6 +81,7 @@ defmodule Membrane.Support.Bin.TestBins do
       {{:ok, spec: spec}, state}
     end
 
+    @impl true
     def handle_pad_added(_pad_ref, _ctx, state), do: {:ok, state}
   end
 

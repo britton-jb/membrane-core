@@ -264,6 +264,7 @@ defmodule Membrane.Bin do
   defmacro __using__(args \\ []) do
     quote location: :keep do
       use Membrane.Parent, unquote(args)
+      use Membrane.Child
       alias unquote(__MODULE__)
       @behaviour unquote(__MODULE__)
 
